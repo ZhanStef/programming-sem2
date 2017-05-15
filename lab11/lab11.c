@@ -23,19 +23,26 @@ pas t1;
 
 int main(){
 //initscr();
-    char c;
-    FILE *tf;
+    char ch;
+    FILE *tf=fopen("file1.dat","wb");
+    if(tf==NULL){
+		printf("\nFile access denied ");
+		return -1;
+	}
+    fclose(tf);
     while (1){
-        printf("\n  1 - new passenger");
-        printf("\n  2 - list of passengers");
-        printf("\n  3 - add passenger");
+        printf("\n  1 - new list passenger and delete previous");
+        printf("\n  2 - show list passengers");
+        printf("\n  3 - add in exist list of passengers");
         printf("\n  4 - delete passengers with luggage weight <10 kg");
-        printf("\n  5 - update .txt");
-        printf("\n  0 - quit");
-
+        printf("\n  5 - update database in file1.txt");
+        printf("\n  0 - quit\n");
+		while((ch=getchar())=='\n'){
+			putchar(ch);
+		}
         //c=getch();
-        scanf("%c",&c);
-        switch(c){
+        //scanf("%c",&c);
+        switch(ch){
             case '1': input(tf);
             break;
             case '2': print(tf);
@@ -57,6 +64,10 @@ int main(){
 void input(FILE *tf){
     char ch;
     tf=fopen("file1.dat","wb");
+    if(tf==NULL){
+		printf("\nFile access denied ");
+		return -1;
+	}
     printf("\n Passengers entry \n");
     do{
         t1.flag_del=0;
@@ -72,8 +83,10 @@ void input(FILE *tf){
         scanf("%d",&t1.w_bags);
         fwrite(&t1,sizeof(pas),1,tf);
         printf("\n Finished?  y/n  ");
-        //ch=getch();
-        scanf("%c",&ch);
+        while((ch=getchar())=='\n'){
+			putchar(ch);
+		}
+        //scanf("%*s%c",&ch);
     }
     while (ch != 'y');
     fclose(tf);
@@ -81,20 +94,26 @@ void input(FILE *tf){
 void print(FILE *tf){
     int i;
     tf=fopen("file1.dat","rb");
+    if(tf==NULL){
+		printf("\nFile access denied ");
+		return -1;
+	}
     i=1;
     while (fread(&t1,sizeof(pas),1,tf)){
         if(t1.flag_del==0){
-            printf("\n  %3d Family: %20s \nName: %20s \nOtchestvo: %20s \nAmount of bags: %2d \n Total weight: %4d",i,t1.fam,t1.name,t1.otech,t1.c_bags,t1.w_bags);
+            printf("\n%3d Family: %20s \nName: %20s \nOtchestvo: %20s \nAmount of bags: %20d \nTotal weight: %20d",i,t1.fam,t1.name,t1.otech,t1.c_bags,t1.w_bags);
             i++;
         }
-        fread(&t1,sizeof(pas),1,tf);
     }
-//    getch();
 	fclose(tf);
 }
 void add(FILE *tf){
     char ch;
     tf=fopen("file1.dat","ab"); //amend
+    if(tf==NULL){
+		printf("\nFile access denied ");
+		return -1;
+	}
     printf("\n Passengers entry \n");
     do{
         printf("\n Family: ");
@@ -109,8 +128,10 @@ void add(FILE *tf){
         scanf("%d",&t1.w_bags);
         fwrite(&t1,sizeof(pas),1,tf);
         printf("\n Finished?  y/n  ");
-        //ch=getch();
-        scanf("%c",&ch);
+        while((ch=getchar())=='\n'){
+			putchar(ch);
+		}
+        //scanf("%c",&ch);
     }
   while (ch != 'y');
   fclose(tf);
@@ -118,6 +139,10 @@ void add(FILE *tf){
 
 void del_less10kg(FILE *tf){
     tf=fopen("file1.dat","rb+");
+    if(tf==NULL){
+		printf("\nFile access denied ");
+		return -1;
+	}
     while (fread(&t1,sizeof(pas),1,tf)){
         if(t1.w_bags<10){
             t1.flag_del=1;
@@ -130,6 +155,10 @@ void del_less10kg(FILE *tf){
 
 void txtupdate(FILE *tf){
     tf=fopen("file1.dat", "rb");
+    if(tf==NULL){
+		printf("\nFile access denied ");
+		return -1;
+	}
     FILE *nf;
     nf=fopen("~temp", "wb");
     while(fread(&t1,sizeof(pas),1,tf)){
