@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <conio.h>
+//#include <conio.h> //windows
+//#include <ncurses.h>//linux -lncurses
+
 void input(FILE *);
 void print(FILE *);
 void add(FILE *);
@@ -20,17 +22,19 @@ typedef struct passenger{
 pas t1;
 
 int main(){
+//initscr();
     char c;
     FILE *tf;
     while (1){
-        puts("\n  1 - new passenger");
-        puts("\n  2 - list of passengers");
-        puts("\n  3 - add passenger");
-        puts("\n  4 - delete passengers with luggage weight <10 kg");
-        puts("\n  5 - update .txt");
-        puts("\n  0 - quit");
+        printf("\n  1 - new passenger");
+        printf("\n  2 - list of passengers");
+        printf("\n  3 - add passenger");
+        printf("\n  4 - delete passengers with luggage weight <10 kg");
+        printf("\n  5 - update .txt");
+        printf("\n  0 - quit");
 
-        c=getch();
+        //c=getch();
+        scanf("%c",&c);
         switch(c){
             case '1': input(tf);
             break;
@@ -43,9 +47,10 @@ int main(){
             case '5': txtupdate(tf);
             break;
             case '0': return 0;
-            default : puts("\n wrong input ");
+            default : printf("\n wrong input ");
          }
     }
+  //  ndwin();
     return 0;
 }
 //from lection
@@ -67,7 +72,8 @@ void input(FILE *tf){
         scanf("%d",&t1.w_bags);
         fwrite(&t1,sizeof(pas),1,tf);
         printf("\n Finished?  y/n  ");
-        ch=getch();
+        //ch=getch();
+        scanf("%c",&ch);
     }
     while (ch != 'y');
     fclose(tf);
@@ -83,7 +89,8 @@ void print(FILE *tf){
         }
         fread(&t1,sizeof(pas),1,tf);
     }
-    getch();
+//    getch();
+	fclose(tf);
 }
 void add(FILE *tf){
     char ch;
@@ -102,7 +109,8 @@ void add(FILE *tf){
         scanf("%d",&t1.w_bags);
         fwrite(&t1,sizeof(pas),1,tf);
         printf("\n Finished?  y/n  ");
-        ch=getch();
+        //ch=getch();
+        scanf("%c",&ch);
     }
   while (ch != 'y');
   fclose(tf);
