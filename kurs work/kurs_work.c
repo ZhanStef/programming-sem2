@@ -13,18 +13,18 @@ typedef struct slovo{
     int flag;
 } sl;
 
-void ZapolnenieOcheredi(sl *tail);
+sl * ZapolnenieOcheredi(sl *tail);
 void VivodOcheredi(sl * head, sl *tail);
 
 int main(){
     sl *head=(sl *) malloc(sizeof(sl));
-    sl *tail=head;
-    ZapolnenieOcheredi(tail);
+    sl *tail=(sl *) head;
+    tail = ZapolnenieOcheredi(tail);
     VivodOcheredi(head, tail);
     return 0;
 }
 
-void ZapolnenieOcheredi(sl *tail){
+sl * ZapolnenieOcheredi(sl *tail){
     FILE *f1=fopen("file.txt","r");
     int g=0;
     unsigned int i;
@@ -67,6 +67,7 @@ void ZapolnenieOcheredi(sl *tail){
         }
     }
     fclose(f1);
+	return tail;
 }
 
 void VivodOcheredi(sl * head, sl *tail){
@@ -78,21 +79,32 @@ void VivodOcheredi(sl * head, sl *tail){
 				putchar(p->str[i]);
 			}
 			else{
-				putchar(' ');
+				//putchar(' ');
 				break;
 			}
         }
-        p=p->next;
+		if(p->flag==1){
+			printf("(<=slovo and flag=1) ");
+		}
+		else{
+			printf("(<=slovo and flag=0) ");
+		}
+		p=p->next;
     }
 	for(i=0;i<20;i++){
 		if(p->str[i]!=0){
 			putchar(p->str[i]);
 		}
 		else{
-			putchar(' ');
+			//putchar(' ');
 			break;
 		}
 	}
-	putchar(0);
+	if(p->flag==1){
+		printf("(<=slovo and flag=1) ");
+	}
+	else{
+		printf("(<=slovo and flag=0) ");
+	}
+//	putchar(0);
 }
-
