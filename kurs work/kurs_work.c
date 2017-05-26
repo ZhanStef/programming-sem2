@@ -44,7 +44,7 @@ sl * ZapolnenieOcheredi(sl *tail){
                     g=0;
                 }
                 while(RAZDELITEL_SLOV(Arr[i]) && g<DLINA_STR_SLOVA ){
-                        p->str[g++]=Arr[i];
+                        p->str[g++]=Arr[i++];
                 }
             }
             if(BUCKVA_OR_CIFRA(Arr[i])){
@@ -59,7 +59,7 @@ sl * ZapolnenieOcheredi(sl *tail){
                     g=0;
                 }
                 while(BUCKVA_OR_CIFRA(Arr[i]) && g!=DLINA_STR_SLOVA){
-                    p->str[g++]=Arr[i];
+                    p->str[g++]=Arr[i++];
                 }
             }
             if(RAZDELITEL_PREDLOJENII(Arr[i])){
@@ -69,7 +69,7 @@ sl * ZapolnenieOcheredi(sl *tail){
                 g=0;
                 p->flag=0;
                 while (RAZDELITEL_PREDLOJENII(Arr[i]) && g!=DLINA_STR_SLOVA) {
-                    p->str[g++]=Arr[i];
+                    p->str[g++]=Arr[i++];
                 }
             }
             if(Arr[i]==0){
@@ -82,6 +82,8 @@ sl * ZapolnenieOcheredi(sl *tail){
             }
         }
     }
+}
+
 
 void VivodOcheredi(sl * head, sl *tail){
     sl *p=head;
