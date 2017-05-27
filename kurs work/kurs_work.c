@@ -15,7 +15,6 @@ typedef struct slovo{
 } sl;
 
 sl * ZapolnenieOcheredi(sl *tail);
-void VivodOcheredi(sl * head, sl *tail);
 void SlovoReverse(sl * head, sl *tail);
 void VivodVFile(sl * head, sl *tail);
 
@@ -23,11 +22,7 @@ int main(){
     sl *head=(sl *) malloc(sizeof(sl));
     sl *tail=(sl *) head;
     tail = ZapolnenieOcheredi(tail);
-    VivodOcheredi(head, tail);
     SlovoReverse(head, tail);
-    putchar('\n');
-	putchar('\n');
-    VivodOcheredi(head, tail);
     VivodVFile(head, tail);
     return 0;
 }
@@ -94,53 +89,13 @@ sl * ZapolnenieOcheredi(sl *tail){
     }
 }
 
-
-void VivodOcheredi(sl * head, sl *tail){
-    sl *p=head;
-    int i;
-    while (p!=tail) {
-        for(i=0;i<20;i++){
-            if(p->str[i]!=0){
-                putchar(p->str[i]);
-            }
-            else{
-                //putchar(' ');
-                break;
-            }
-        }
-        if(p->flag==1){
-            printf("(<=slovo and flag=1)");
-        }
-        else{
-            printf("(<=slovo and flag=0)");
-        }
-        p=p->next;
-    }
-    for(i=0;i<20;i++){
-        if(p->str[i]!=0){
-            putchar(p->str[i]);
-        }
-        else{
-            //putchar(' ');
-            break;
-        }
-    }
-    if(p->flag==1){
-        printf("(<=slovo and flag=1)");
-    }
-    else{
-        printf("(<=slovo and flag=0)");
-    }
-//	putchar(0);
-}
-
 void SlovoReverse(sl * head, sl *tail){
     sl *p=head;
     int i, j;
     char temp;
     while (p!=tail) {
         if(p->flag==1){
-			i=0;
+            i=0;
             j=DLINA_STR_SLOVA-1;
             while(i<j){
                 if(p->str[j]!=0){
@@ -168,7 +123,7 @@ void VivodVFile(sl * head, sl *tail){
             return;
     }
     while (p!=tail) {
-        for(i=0;i<20;i++){
+        for(i=0;i<DLINA_STR_SLOVA;i++){
             if(p->str[i]!=0){
                 fputc(p->str[i], f1);
             }
@@ -178,7 +133,7 @@ void VivodVFile(sl * head, sl *tail){
         }
         p=p->next;
     }
-    for(i=0;i<20;i++){
+    for(i=0;i<DLINA_STR_SLOVA;i++){
         if(p->str[i]!=0){
             fputc(p->str[i], f1);
         }
