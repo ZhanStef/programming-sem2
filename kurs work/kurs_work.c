@@ -16,11 +16,15 @@ typedef struct slovo{
 
 sl * ZapolnenieOcheredi(sl *tail);
 void VivodOcheredi(sl * head, sl *tail);
+void SlovoReverse(sl * head, sl *tail);
+void VivodVFike(sl * head, sl *tail);
 
 int main(){
     sl *head=(sl *) malloc(sizeof(sl));
     sl *tail=(sl *) head;
     tail = ZapolnenieOcheredi(tail);
+    VivodOcheredi(head, tail);
+    SlovoReverse(head, tail);
     VivodOcheredi(head, tail);
     return 0;
 }
@@ -29,6 +33,7 @@ sl * ZapolnenieOcheredi(sl *tail){
     FILE *f1;
     if(!(f1=fopen("file.txt","r"))){
             printf("\nOpen file failure. ");
+            return;
     }
     int g=0;
     unsigned int i;
@@ -48,7 +53,9 @@ sl * ZapolnenieOcheredi(sl *tail){
                 }
             }
             if(BUCKVA_OR_CIFRA(Arr[i])){
-                ESHE_SLOVO(p);
+                if(g!=0){
+                    ESHE_SLOVO(p);
+                }
                 if(flag==1){
                     p->flag=1;
                     flag=0;
@@ -99,10 +106,10 @@ void VivodOcheredi(sl * head, sl *tail){
             }
         }
         if(p->flag==1){
-            printf("(<=slovo and flag=1) ");
+            printf("(<=slovo and flag=1)");
         }
         else{
-            printf("(<=slovo and flag=0) ");
+            printf("(<=slovo and flag=0)");
         }
         p=p->next;
     }
@@ -116,10 +123,65 @@ void VivodOcheredi(sl * head, sl *tail){
         }
     }
     if(p->flag==1){
-        printf("(<=slovo and flag=1) ");
+        printf("(<=slovo and flag=1)");
     }
     else{
-        printf("(<=slovo and flag=0) ");
+        printf("(<=slovo and flag=0)");
     }
 //	putchar(0);
+}
+
+void SlovoReverse(sl * head, sl *tail){
+    sl *p=head;
+    int i, j;
+    char temp;
+    while (p!=tail) {
+        if(p->flag==1){
+            j=DLINA_STR_SLOVA-1;
+            while(i<j){
+                if(p->str[i]!=0){
+                    temp=p->str[i];
+                    p->str[i]=p->str[j];
+                    p->str[j]=temp;
+                    i++;
+                    j++;
+                }
+                else{
+                    j--;
+                }
+
+            }
+        }
+        p=p->next;
+    }
+}
+
+void VivodVFike(sl * head, sl *tail){
+    sl *p=head;
+    int i, j;
+    FILE *f1;
+    if(!(f1=fopen("file_new.txt","w+"))){
+            printf("\nOpen file failure. ");
+            return -1;
+    }
+    while (p!=tail) {
+        for(i=0;i<20;i++){
+            if(p->str[i]!=0){
+                fputc(p->str[i], f1);
+            }
+            else{
+                break;
+            }
+        }
+        p=p->next;
+    }
+    for(i=0;i<20;i++){
+        if(p->str[i]!=0){
+            fputc(p->str[i], f1);
+        }
+        else{
+            break;
+        }
+    }
+        fclose(f1);
 }
