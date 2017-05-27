@@ -5,7 +5,7 @@
 #define SCHITIVAEM 80
 #define BUCKVA_OR_CIFRA(X) ((X>=65 && X<=90) || (X>=48 && X<=57) || (X>=97 && X<=122))
 #define RAZDELITEL_PREDLOJENII(X) (X=='?' || X=='!' || X=='.')
-#define RAZDELITEL_SLOV(X) (X==' ' || X=='\n')
+#define RAZDELITEL_SLOV(X) (X==' ' || X==10 || X==13)
 #define ESHE_SLOVO(X) X=(sl *)malloc(sizeof(sl)); tail->next=X; tail=X;
 
 typedef struct slovo{
