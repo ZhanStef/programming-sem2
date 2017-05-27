@@ -17,7 +17,7 @@ typedef struct slovo{
 sl * ZapolnenieOcheredi(sl *tail);
 void VivodOcheredi(sl * head, sl *tail);
 void SlovoReverse(sl * head, sl *tail);
-void VivodVFike(sl * head, sl *tail);
+void VivodVFile(sl * head, sl *tail);
 
 int main(){
     sl *head=(sl *) malloc(sizeof(sl));
@@ -25,7 +25,10 @@ int main(){
     tail = ZapolnenieOcheredi(tail);
     VivodOcheredi(head, tail);
     SlovoReverse(head, tail);
+    putchar('\n');
+	putchar('\n');
     VivodOcheredi(head, tail);
+    VivodVFile(head, tail);
     return 0;
 }
 
@@ -137,32 +140,32 @@ void SlovoReverse(sl * head, sl *tail){
     char temp;
     while (p!=tail) {
         if(p->flag==1){
+			i=0;
             j=DLINA_STR_SLOVA-1;
             while(i<j){
-                if(p->str[i]!=0){
+                if(p->str[j]!=0){
                     temp=p->str[i];
                     p->str[i]=p->str[j];
                     p->str[j]=temp;
                     i++;
-                    j++;
+                    j--;
                 }
                 else{
                     j--;
                 }
-
             }
         }
         p=p->next;
     }
 }
 
-void VivodVFike(sl * head, sl *tail){
+void VivodVFile(sl * head, sl *tail){
     sl *p=head;
-    int i, j;
+    int i;
     FILE *f1;
     if(!(f1=fopen("file_new.txt","w+"))){
             printf("\nOpen file failure. ");
-            return -1;
+            return;
     }
     while (p!=tail) {
         for(i=0;i<20;i++){
@@ -183,5 +186,5 @@ void VivodVFike(sl * head, sl *tail){
             break;
         }
     }
-        fclose(f1);
+    fclose(f1);
 }
